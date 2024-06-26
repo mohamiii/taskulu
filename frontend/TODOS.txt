@@ -1,0 +1,25 @@
+Login✅
+Boards
+    header✅
+    sidebar❌
+    pinned❔
+    archived❔
+Tasks
+Settings
+Account
+
+
+1: Fix header✅
+2: Modal style✅
+3: Projects, buttons and styles
+4: Task list header & right panel style w/o functionality
+5: Tasks list html structure
+6: Add functionality to tasks and boards
+7: Connect to backend
+8: Extra backend features
+9: Add Account page
+10: Account page & Add missing functionalities
+11: Extra backend features & fix styles
+12: Add search to backend
+13: Fix search
+14: Fix mobile view responsiveness

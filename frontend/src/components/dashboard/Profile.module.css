@@ -1,0 +1,131 @@
+.header-profile {
+  width: 36px;
+  max-width: 36px;
+  margin-right: 10px;
+  padding: 8px;
+}
+
+.dropdown {
+  position: relative;
+  /* cursor: pointer; */
+}
+
+.user-avatar {
+  display: flex;
+  cursor: pointer;
+}
+
+.avatar-img {
+  border-radius: 50%;
+}
+
+.user-status-online {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  border: 2px solid #cdcdcd;
+  background-color: #e0e0e0;
+  position: absolute;
+  left: -12px;
+  bottom: 4px;
+  background-color: #a9ff4f;
+  border-color: #95ff26;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+}
+
+.menu {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
+  font-size: 14px;
+  width: 160px;
+  height: 165px;
+  flex-direction: column;
+  margin: 2px;
+  background-color: #fff;
+  border-radius: 2px;
+  position: fixed;
+  left: 8px;
+}
+
+.dropdown-header {
+  font-size: 1.3rem;
+  text-align: center;
+  background-color: #b3e5fc;
+  border-bottom: none;
+  cursor: default;
+}
+
+.header-text {
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding: 8px;
+  font-size: 13px;
+  font-style: normal;
+  color: #212121;
+  text-decoration: none;
+}
+
+.item:hover {
+  background-color: #f2f2f2;
+}
+
+.dropdown-icon-user::before {
+  font-family: taskulu !important;
+  font-size: 13px;
+  font-style: normal;
+  color: #212121;
+  content: "\E03F";
+}
+
+.dropdown-icon-help::before {
+  font-family: taskulu !important;
+  font-size: 13px;
+  font-style: normal;
+  color: #212121;
+  content: "\E06A";
+}
+
+.dropdown-divider {
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 5px 0;
+  border-top: 1px solid #dfdfdf;
+}
+
+.logout-btn {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px;
+  font-size: 13px;
+  font-style: normal;
+  text-decoration: none;
+  color: #212121;
+  background-color: #fff;
+  transition: background 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+  border-style: none;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  color: red;
+  background-color: #f2f2f2;
+}
+
+.logout-icon::before {
+  font-family: taskulu !important;
+  font-size: 13px;
+  font-style: normal;
+  content: "\E025";
+  display: flex;
+  padding-top: 4px;
+}

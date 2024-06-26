@@ -1,0 +1,47 @@
+@font-face {
+  font-family: iransans;
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/fonts/iransans.ttf);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "open sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/fonts/open-sans-v15-latin-regular.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: taskulu;
+  src: url(../../public/assets/fonts/taskulu-icon.ttf);
+  font-weight: 400;
+  font-style: normal;
+}
+[data-icon] {
+  content: attr(data-icon);
+}
+
+* {
+  font-family: iransans, "open sans", tahoma, helvetica, sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  margin: 0;
+  line-height: 1.6;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.h1 {
+  margin: 0%;
+}
