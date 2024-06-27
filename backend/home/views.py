@@ -168,8 +168,8 @@ class TaskListCreateView(APIView):
     serializer_class = TaskListSerializer
 
     def post(self, request):
-        project_obj = Project.objects.filter(user=request.user)
-        owned_page = ProjectSerializer(instance=project_obj, many=True).data
+        page_obj = Page.objects.filter(user=request.user)
+        owned_page = PageSerializer(instance=page_obj, many=True).data
         if not int(request.data['page']) in [i['id'] for i in owned_page]:
             return Response({"Access denied"}, status=status.HTTP_403_FORBIDDEN)
         srz_data = TaskListSerializer(data=request.data)
