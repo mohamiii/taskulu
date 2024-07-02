@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import styles from "./Modal.module.css";
+import styles from "./ProjectModal.module.css";
 import { IoClose } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
@@ -31,8 +31,20 @@ function Modal({ open, onClose, onSubmit }: Props) {
     closeDialog();
   };
 
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDialogElement> = (
+    event
+  ) => {
+    if (event.key === "Escape") {
+      closeDialog();
+    }
+  };
+
   const dialog: JSX.Element | null = open ? (
-    <dialog className={styles["modal"]} ref={dialogRef}>
+    <dialog
+      className={styles["modal"]}
+      ref={dialogRef}
+      onKeyDown={handleKeyDown}
+    >
       <div className={styles["modal-inner"]}>
         <div className={styles["modal-header"]}>
           <h3>ایجاد پروژه جدید</h3>

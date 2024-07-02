@@ -1,39 +1,43 @@
+import Board from "@/components/dashboard/Board";
 import Header from "@/components/dashboard/Header";
 import styles from "@/pages/dashboard/index.module.css";
-import api from "@/components/api/Boards";
-import { useEffect } from "react";
+import axios from "axios";
+
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzODE2MzcwLCJpYXQiOjE3MTk0OTYzNzAsImp0aSI6IjA0NGViYmEyZmRmODRkNzJhOTA3OTc4YmRkNTVhNDY4IiwidXNlcl9pZCI6MX0.azJVyQ3fbVmHnIwC_yvP5tAPONpXujs7UsHUdqHZ2oM";
+
+// const params = axios.create({
+//   baseURL: "http://localhost:8000/",
+//   headers: {
+//     Authorization: `Bearer ${token}`,
+//     accept: "application/json",
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Headers": "*",
+//     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, DELETE",
+//   },
+// });
+
+// params
+//   .get("/project/1/")
+//   .then(() => {
+//     console.log(
+//       "%c" + "Worked",
+//       "padding: 0.15rem; background: #04406b; color: #fcfabd"
+//     );
+//   })
+//   .catch(() => {
+//     console.log(
+//       "%c" + "NOT WORKING",
+//       "padding: 0.15rem; background: red; color: #fcfabd"
+//     );
+//   });
 
 export default function Dashboard() {
-  useEffect(() => {
-    const fetchBoards = async () => {
-      try {
-        const response = await api.get("/");
-        console.log("👉 ~ fetchBoards ~ response:", response);
-        console.log(
-          "%c" + "boards" + response.data,
-          "padding: 0.15rem; background: #04406b; color: #fcfabd"
-        );
-      } catch (err: any) {
-        if (err.response) {
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.headers);
-        } else {
-          console.log(` Error: ${err.message} `);
-        }
-      }
-    };
-
-    fetchBoards();
-  }, []);
-
   return (
     <>
       <Header />
       <div className={styles["dashboard"]}>
-        <div className={styles["dashboard-inner"]}>
-          <h1>Dashboard</h1>
-        </div>
+        <Board />
       </div>
     </>
   );

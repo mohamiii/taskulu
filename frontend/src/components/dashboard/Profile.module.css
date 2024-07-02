@@ -15,10 +15,6 @@
   cursor: pointer;
 }
 
-.avatar-img {
-  border-radius: 50%;
-}
-
 .user-status-online {
   width: 10px;
   height: 10px;

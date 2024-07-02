@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "title": "board1",
+    "created": "2024-06-27T17:27:04.790618+03:30",
+    "projects": [
+      {
+        "id": 1,
+        "title": "project1",
+        "created": "2024-06-27T13:59:07.510365Z",
+        "board": 1
+      },
+      {
+        "id": 2,
+        "title": "project2",
+        "created": "2024-06-27T14:59:07.510365Z",
+        "board": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "board2",
+    "created": "2024-06-28T17:27:04.790618+03:30",
+    "projects": [
+      {
+        "id": 1,
+        "title": "project1",
+        "created": "2024-06-28T13:59:07.510365Z",
+        "board": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "board3",
+    "created": "2024-06-28T17:27:04.790618+03:30",
+    "projects": []
+  }
+]

@@ -26,6 +26,7 @@
 
 * {
   font-family: iransans, "open sans", tahoma, helvetica, sans-serif;
+  direction: rtl;
 }
 
 body {
