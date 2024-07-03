@@ -36,9 +36,7 @@ export default function Dashboard() {
   return (
     <>
       <Header />
-      <div className={styles["dashboard"]}>
-        <Board />
-      </div>
+      <Board />
     </>
   );
 }

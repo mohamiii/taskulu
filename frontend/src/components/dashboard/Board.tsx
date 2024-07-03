@@ -3,7 +3,7 @@ import BOARDS from "../api/DUMMY_BOARDS.json";
 import Modal from "./ProjectModal";
 import CircularImage from "./CircularImage";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { GrOrganization } from "react-icons/gr";
+import { BiSolidBuilding } from "react-icons/bi";
 import { FaRegStar } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import styles from "./Board.module.css";
@@ -29,7 +29,7 @@ export default function Board() {
         <section key={board.id} className={styles["board-container"]}>
           <div className={styles["board-header"]}>
             <div className={styles["organization-logo"]}>
-              <GrOrganization />
+              <BiSolidBuilding />
             </div>
             <h4 className={styles["board-title"]}>{board.title}</h4>
             <button className={styles["btn"]} onClick={handleClick}>

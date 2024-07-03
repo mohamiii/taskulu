@@ -1,7 +1,8 @@
 .boards {
   display: flex;
   flex-direction: column;
-  margin: 16px;
+  padding: 16px;
+  padding-top: 48px;
 }
 
 .board-container {

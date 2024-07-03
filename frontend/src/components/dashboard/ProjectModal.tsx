@@ -12,6 +12,7 @@ type Props = {
 
 function Modal({ open, onClose, onSubmit }: Props) {
   const dialogRef = useRef<null | HTMLDialogElement>(null);
+  const modalRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     if (open) {
@@ -39,13 +40,31 @@ function Modal({ open, onClose, onSubmit }: Props) {
     }
   };
 
+  useEffect(() => {
+    let handler = (e: MouseEvent) => {
+      if (
+        modalRef.current &&
+        e.target instanceof Node &&
+        !modalRef.current.contains(e.target)
+      ) {
+        closeDialog();
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+
   const dialog: JSX.Element | null = open ? (
     <dialog
       className={styles["modal"]}
       ref={dialogRef}
       onKeyDown={handleKeyDown}
     >
-      <div className={styles["modal-inner"]}>
+      <div className={styles["modal-inner"]} ref={modalRef}>
         <div className={styles["modal-header"]}>
           <h3>ایجاد پروژه جدید</h3>
           <span onClick={closeDialog} className={styles["modal-close"]}>
