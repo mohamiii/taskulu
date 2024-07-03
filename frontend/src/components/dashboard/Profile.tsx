@@ -1,15 +1,31 @@
 import Image from "next/image";
 import styles from "./Profile.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import CircularImage from "./CircularImage";
 
 export default function ProfileImage() {
   const [menuDisplay, setMenuDisplay] = useState(false);
 
-  function handleClick() {
-    setMenuDisplay((prev) => !prev);
-  }
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let handler = (e: MouseEvent) => {
+      if (
+        menuRef.current &&
+        e.target instanceof Node &&
+        !menuRef.current.contains(e.target)
+      ) {
+        setMenuDisplay(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
   return (
     <>
@@ -18,18 +34,16 @@ export default function ProfileImage() {
           <div
             className={styles["user-avatar"]}
             onClick={() => {
-              handleClick();
+              setMenuDisplay((prev) => !prev);
             }}
           >
             <CircularImage />
             <span className={styles["user-status-online"]}></span>
           </div>
           <div
+            ref={menuRef}
             className={styles["menu"]}
             style={menuDisplay ? { display: "flex" } : { display: "none" }}
-            onBlur={() => {
-              setMenuDisplay(false);
-            }}
             tabIndex={0}
           >
             <div className={styles["dropdown-header"]}>
