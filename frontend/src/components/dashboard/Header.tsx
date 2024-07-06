@@ -1,7 +1,7 @@
 import Profile from "./Profile";
 import styles from "./Header.module.css";
 import { useState } from "react";
-import Modal from "./ProjectModal";
+import ProjectModal from "./ProjectModal";
 
 export default function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -53,7 +53,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <Modal
+      <ProjectModal
         open={modalIsOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmit}

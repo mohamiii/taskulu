@@ -59,7 +59,7 @@ export default function ProfileImage() {
               <i className={styles["dropdown-icon-help"]}></i>
               راهنما
             </a>
-            <div className={styles["dropdown-divider"]}></div>
+            <hr className={styles["dropdown-divider"]} />
             <button className={styles["logout-btn"]}>
               <i className={styles["logout-icon"]}></i>
               خروج

@@ -3,10 +3,10 @@ from . import views
 
 app_name = 'home'
 urlpatterns = [
-	path('', views.BoardListView.as_view(), name='home'),
-	path('create/', views.BoardCreateView.as_view()),
-	path('update/<int:pk>/', views.BoardUpdateView.as_view()),
-	path('delete/<int:pk>/', views.BoardDeleteView.as_view()),
+	path('board/', views.BoardListView.as_view(), name='home'),
+	path('board/create/', views.BoardCreateView.as_view()),
+	path('board/update/<int:pk>/', views.BoardUpdateView.as_view()),
+	path('board/delete/<int:pk>/', views.BoardDeleteView.as_view()),
 	path('project/<int:pk>/', views.ProjectListView.as_view()),
 	path('project/create/', views.ProjectCreateView.as_view()),
 	path('project/update/<int:pk>/', views.ProjectUpdateView.as_view()),

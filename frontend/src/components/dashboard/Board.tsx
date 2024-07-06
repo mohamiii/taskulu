@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BOARDS from "../api/DUMMY_BOARDS.json";
-import Modal from "./ProjectModal";
+import ProjectModal from "./ProjectModal";
 import CircularImage from "./CircularImage";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { BiSolidBuilding } from "react-icons/bi";
 import { FaRegStar } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import styles from "./Board.module.css";
+import axios from "axios";
 
-export default function Board() {
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzODE2MzcwLCJpYXQiOjE3MTk0OTYzNzAsImp0aSI6IjA0NGViYmEyZmRmODRkNzJhOTA3OTc4YmRkNTVhNDY4IiwidXNlcl9pZCI6MX0.azJVyQ3fbVmHnIwC_yvP5tAPONpXujs7UsHUdqHZ2oM";
+
+const params = axios.create({
+  baseURL: "http://localhost:8000/",
+  headers: {
+    Authorization: `Bearer ${token}`,
+    accept: "application/json",
+  },
+});
+
+const Board: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [boards, setBoards] = useState(BOARDS);
 
   async function handleCloseModal() {
     setModalIsOpen(false);
@@ -23,9 +36,23 @@ export default function Board() {
     setModalIsOpen(true);
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await params.get("board/");
+        setBoards(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className={styles["boards"]}>
-      {BOARDS.map((board) => (
+      {boards.map((board) => (
         <section key={board.id} className={styles["board-container"]}>
           <div className={styles["board-header"]}>
             <div className={styles["organization-logo"]}>
@@ -72,11 +99,13 @@ export default function Board() {
         <FaPlus />
       </button>
 
-      <Modal
+      <ProjectModal
         open={modalIsOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmit}
       />
     </div>
   );
-}
+};
+
+export default Board;

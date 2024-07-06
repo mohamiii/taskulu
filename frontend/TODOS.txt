@@ -2,8 +2,8 @@ Login✅
 Boards
     header✅
     sidebar❌
-    pinned❔
-    archived❔
+    starred❌
+    archived❌
 Tasks
 Settings
 Account
@@ -11,9 +11,9 @@ Account
 
 1: Fix header✅
 2: Modal style✅
-3: Projects, buttons and styles❌
+3: Projects, buttons and styles✅
 4: Task list header & right panel style w/o functionality❌
-5: Tasks list html structure❌
+5: Tasks list structure❌
 6: Add functionality to tasks and boards❌
 7: Connect to backend
 8: Extra backend features
