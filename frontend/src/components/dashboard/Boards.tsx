@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./Boards.module.css";
 import BoardModal from "./BoardModal";
 import ProjectModal from "./ProjectModal";
@@ -7,25 +7,13 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { BiSolidBuilding } from "react-icons/bi";
 import { FaRegStar } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
+import { BoardContext } from "@/store/board-context";
 
-interface Board {
-  id: number;
-  title: string;
-  projects: Project[];
-}
-
-interface Project {
-  id: number;
-  title: string;
-}
-type Props = {
-  boards: Board[];
-  setBoards: (boards: Board[]) => void;
-};
-
-export default function Boards({ boards, setBoards }: Props) {
+export default function Boards() {
   const [projectModalIsOpen, setProjectModalIsOpen] = useState(false);
   const [boardModalIsOpen, setBoardModalIsOpen] = useState(false);
+
+  const { boards } = useContext(BoardContext);
 
   return (
     <div className={styles["boards"]}>
@@ -99,8 +87,6 @@ export default function Boards({ boards, setBoards }: Props) {
         onClose={() => {
           setBoardModalIsOpen(false);
         }}
-        boards={boards ? boards : []}
-        setBoards={setBoards}
       />
     </div>
   );

@@ -1,67 +1,51 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "../customComponent/Modal";
 import styles from "./BoardModal.module.css";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzODE2MzcwLCJpYXQiOjE3MTk0OTYzNzAsImp0aSI6IjA0NGViYmEyZmRmODRkNzJhOTA3OTc4YmRkNTVhNDY4IiwidXNlcl9pZCI6MX0.azJVyQ3fbVmHnIwC_yvP5tAPONpXujs7UsHUdqHZ2oM";
-
-const params = axios.create({
-  baseURL: "http://localhost:8000/",
-  headers: {
-    Authorization: `Bearer ${token}`,
-    accept: "application/json",
-  },
-});
-
-interface Board {
-  id: number;
-  title: string;
-  projects: Project[];
-}
-
-interface Project {
-  id: number;
-  title: string;
-}
+import { BoardContext } from "@/store/board-context";
+import { api } from "@/components/api/api";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  boards: Board[];
-  setBoards: (boards: Board[]) => void;
 };
 
-export default function BoardModal({
-  open,
-  onClose,
-  boards,
-  setBoards,
-}: Props) {
-  const [boardName, setBoardName] = useState<string>("");
+export default function BoardModal({ open, onClose }: Props) {
+  const [boardTitle, setBoardTitle] = useState<string>("");
+
+  const { boards, setBoards } = useContext(BoardContext);
 
   const handleCreateBoard = async () => {
-    try {
-      const body = { title: boardName };
-      const response = await params.post("board/create/", body);
-      if (response.status === 201) {
-        const allBoards = [...boards, response.data];
-        setBoards(allBoards);
-        onClose();
-      } else {
+    if (boardTitle.length > 0) {
+      try {
+        const body = { title: boardTitle };
+        const response = await api.post("board/create/", body);
+        if (response.status === 201) {
+          const allBoards = [...boards, response.data];
+          setBoards(allBoards);
+          setBoardTitle("");
+          onClose();
+        } else {
+          toast.error("خطا در ساخت سازمان");
+        }
+      } catch (error) {
+        console.error(error);
         toast.error("خطا در ساخت سازمان");
       }
-    } catch (error) {
-      console.error(error);
-      toast.error("خطا در ساخت سازمان");
+    }
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleCreateBoard();
     }
   };
 
   return (
     <Modal open={open} onClose={onClose}>
-      <div className={styles["container"]}>
+      <div className={styles["container"]} onKeyDown={handleKeyDown}>
         <div className={styles["tabs"]}>
           <div className={styles["active"]}>تنظیمات سازمان</div>
           <div className={styles["inactive"]}>مدیریت کاربران</div>
@@ -72,12 +56,18 @@ export default function BoardModal({
             className={styles["input"]}
             placeholder="عنوان سازمان را وارد کنید"
             onChange={(event) => {
-              setBoardName(event.target.value);
+              setBoardTitle(event.target.value);
             }}
           />
         </form>
         <div className={styles["footer"]}>
-          <button onClick={handleCreateBoard} className={styles["btn"]}>
+          <button
+            disabled={boardTitle.length === 0}
+            onClick={handleCreateBoard}
+            className={
+              boardTitle.length > 0 ? styles["btn"] : styles["btn-disabled"]
+            }
+          >
             بساز
           </button>
           <button onClick={onClose} className={styles["cancel"]}>
@@ -85,8 +75,6 @@ export default function BoardModal({
           </button>
         </div>
       </div>
-
-      <ToastContainer position="top-center" pauseOnFocusLoss={false} />
     </Modal>
   );
 }
