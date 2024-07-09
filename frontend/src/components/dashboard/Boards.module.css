@@ -3,8 +3,7 @@
   flex-direction: column;
   padding: 16px;
   padding-top: 48px;
-  height: 100vh;
-  width: 100vw;
+  user-select: none;
 }
 
 .board-container {
@@ -20,7 +19,7 @@
   padding-right: 16px;
 }
 
-.organization-logo {
+.organization-icon {
   top: -4px;
 }
 

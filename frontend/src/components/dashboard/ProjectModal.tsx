@@ -1,5 +1,5 @@
-"use client";
 import { useEffect, useRef } from "react";
+import Modal from "../customComponent/Modal";
 import styles from "./ProjectModal.module.css";
 import { IoClose } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -7,67 +7,15 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 type Props = {
   open: boolean;
   onClose: () => void;
-  onSubmit: () => void;
 };
 
-function Modal({ open, onClose, onSubmit }: Props) {
-  const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const modalRef = useRef<null | HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (open) {
-      dialogRef.current?.showModal();
-    } else {
-      dialogRef.current?.close();
-    }
-  }, [open]);
-
-  const closeDialog = () => {
-    dialogRef.current?.close();
-    onClose();
-  };
-
-  const submit = () => {
-    onSubmit();
-    closeDialog();
-  };
-
-  const handleKeyDown: React.KeyboardEventHandler<HTMLDialogElement> = (
-    event
-  ) => {
-    if (event.key === "Escape") {
-      closeDialog();
-    }
-  };
-
-  useEffect(() => {
-    let handler = (e: MouseEvent) => {
-      if (
-        modalRef.current &&
-        e.target instanceof Node &&
-        !modalRef.current.contains(e.target)
-      ) {
-        closeDialog();
-      }
-    };
-
-    document.addEventListener("mousedown", handler);
-
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  });
-
-  const dialog: JSX.Element | null = open ? (
-    <dialog
-      className={styles["modal"]}
-      ref={dialogRef}
-      onKeyDown={handleKeyDown}
-    >
-      <div className={styles["modal-inner"]} ref={modalRef}>
-        <div className={styles["modal-header"]}>
+export default function ProjectModal({ open, onClose }: Props) {
+  return (
+    <Modal open={open} onClose={onClose}>
+      <div className={styles["modal-container"]}>
+        <div className={styles["header"]}>
           <h3>ایجاد پروژه جدید</h3>
-          <span onClick={closeDialog} className={styles["modal-close"]}>
+          <span onClick={onClose} className={styles["modal-close"]}>
             <div className={styles["cross-icon"]}>
               <IoClose />
             </div>
@@ -85,15 +33,12 @@ function Modal({ open, onClose, onSubmit }: Props) {
             </div>
           </div>
         </div>
-        <div className={styles["modal-footer"]}>
-          <button onClick={submit} className={styles["btn"]}>
+        <div className={styles["footer"]}>
+          <button onClick={onClose} className={styles["btn"]}>
             بساز
           </button>
         </div>
       </div>
-    </dialog>
-  ) : null;
-  return dialog;
+    </Modal>
+  );
 }
-
-export default Modal;

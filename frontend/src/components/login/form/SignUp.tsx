@@ -1,4 +1,4 @@
-import Input from "../../tag/Input";
+import Input from "../../customComponent/Input";
 import { useInput } from "../../../hooks/useInput";
 import {
   usernameError,

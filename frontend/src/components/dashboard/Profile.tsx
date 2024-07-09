@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Profile.module.css";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
