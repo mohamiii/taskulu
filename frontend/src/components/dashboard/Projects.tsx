@@ -5,9 +5,17 @@ import { useContext, useEffect, useState } from "react";
 import { BoardContext } from "@/store/board-context";
 
 export default function Projects({ boardId }: { boardId: number }) {
-  const { boards } = useContext(BoardContext);
+  const { boards, projects, setProjects } = useContext(BoardContext);
 
-  const projects = boards[boardId].projects;
+  useEffect(() => {
+    if (boards && boardId in boards) {
+      setProjects(boards[boardId].projects);
+    }
+    return () => {
+      setProjects([]);
+    };
+  }, [boards, boardId, setProjects]);
+
   return (
     <ul className={styles["project-cards"]}>
       {projects && projects.length > 0 ? (

@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function ProjectModal({ open, onClose }: Props) {
-  const { boards } = useContext(BoardContext);
+  const { boards, projects, setProjects } = useContext(BoardContext);
 
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [boardsDropdownIsOpen, setBoardsDropdownIsOpen] = useState(false);
@@ -23,10 +23,11 @@ export default function ProjectModal({ open, onClose }: Props) {
     if (projectBoard) {
       if (projectTitle.length > 0) {
         try {
-          const projects = projectBoard.projects;
           const body = { title: projectTitle, board: projectBoard.id };
           const response = await api.post("project/create/", body);
           if (response.status === 201) {
+            const allProjects = [projectBoard.projects, response.data];
+            setProjects(allProjects);
             setProjectTitle("");
             onClose();
           } else {
