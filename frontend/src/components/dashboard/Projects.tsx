@@ -5,23 +5,13 @@ import { useContext, useEffect, useState } from "react";
 import { BoardContext } from "@/store/board-context";
 
 export default function Projects({ boardId }: { boardId: number }) {
-  const { boards, projects, setProjects } = useContext(BoardContext);
-  const [localProjects, setLocalProjects] = useState(projects);
+  const { boards } = useContext(BoardContext);
 
-  useEffect(() => {
-    if (boards && boards[boardId]) {
-      const updatedProjects = boards[boardId].projects;
-      setLocalProjects(updatedProjects);
-    }
-    return () => {
-      setLocalProjects([]);
-    };
-  }, [boardId, boards, setProjects]);
-
+  const projects = boards[boardId].projects;
   return (
     <ul className={styles["project-cards"]}>
-      {localProjects && localProjects.length > 0 ? (
-        localProjects.map((project) => (
+      {projects && projects.length > 0 ? (
+        projects.map((project) => (
           <li key={project.id} className={styles["project-card"]}>
             <div className={styles["project-header"]}>
               <div className={styles["star-icon"]}>

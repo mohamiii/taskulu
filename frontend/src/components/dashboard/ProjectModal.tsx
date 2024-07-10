@@ -12,39 +12,33 @@ type Props = {
   onClose: () => void;
 };
 
-interface Project {
-  id: number;
-  title: string;
-}
-
 export default function ProjectModal({ open, onClose }: Props) {
-  const { boards, projects, setProjects } = useContext(BoardContext);
+  const { boards } = useContext(BoardContext);
 
-  const [projectBoard, setProjectBoard] = useState(boards[0]);
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [boardsDropdownIsOpen, setBoardsDropdownIsOpen] = useState(false);
-  const [localProjects, setLocalProjects] = useState(projects);
 
   const handleCreateProject = async () => {
-    if (projectTitle.length > 0) {
-      try {
-        setLocalProjects(projectBoard.projects);
-        const body = { title: projectTitle, board: projectBoard.id };
-        const response = await api.post("project/create/", body);
-        if (response.status === 201) {
-          const allProjects = [...projects, response.data];
-          setLocalProjects(allProjects);
-          setProjectTitle("");
-          onClose();
-        } else {
+    const projectBoard = boards[0];
+    if (projectBoard) {
+      if (projectTitle.length > 0) {
+        try {
+          const projects = projectBoard.projects;
+          const body = { title: projectTitle, board: projectBoard.id };
+          const response = await api.post("project/create/", body);
+          if (response.status === 201) {
+            setProjectTitle("");
+            onClose();
+          } else {
+            toast.error("خطا در ساخت پروژه");
+          }
+        } catch (error) {
+          console.error(error);
           toast.error("خطا در ساخت پروژه");
         }
-      } catch (error) {
-        console.error(error);
-        toast.error("خطا در ساخت پروژه");
+      } else {
+        toast.error("عنوان پروژه نمی‌تواند خالی باشد");
       }
-    } else {
-      toast.error("عنوان پروژه نمی‌تواند خالی باشد");
     }
   };
 

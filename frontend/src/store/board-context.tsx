@@ -18,8 +18,6 @@ interface Project {
 export const BoardContext = createContext({
   boards: [] as Board[],
   setBoards: (boards: Board[]) => {},
-  projects: [] as Project[],
-  setProjects: (projects: Project[]) => {},
 });
 
 export default function BoardContextProvider({
@@ -28,7 +26,6 @@ export default function BoardContextProvider({
   children: React.ReactNode;
 }) {
   const [boards, setBoards] = useState<Board[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]);
 
   const fetchBoards = async () => {
     try {
@@ -47,8 +44,6 @@ export default function BoardContextProvider({
   const contextValue = {
     boards,
     setBoards,
-    projects,
-    setProjects,
   };
   return (
     <BoardContext.Provider value={contextValue}>
