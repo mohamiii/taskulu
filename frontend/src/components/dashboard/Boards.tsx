@@ -2,12 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./Boards.module.css";
 import BoardModal from "./BoardModal";
 import ProjectModal from "./ProjectModal";
-import CircularImage from "./CircularImage";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { BiSolidBuilding } from "react-icons/bi";
-import { FaRegStar } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { BoardContext } from "@/store/board-context";
+import Projects from "./Projects";
 
 export default function Boards() {
   const [projectModalIsOpen, setProjectModalIsOpen] = useState(false);
@@ -38,31 +37,7 @@ export default function Boards() {
                 <RiArrowDropDownLine />
               </span>
             </div>
-            <ul className={styles["project-cards"]}>
-              {board.projects && board.projects.length > 0 ? (
-                board.projects.map((project) => (
-                  <li key={project.id} className={styles["project-card"]}>
-                    <div className={styles["project-header"]}>
-                      <div className={styles["star-icon"]}>
-                        <FaRegStar />
-                      </div>
-                      <div className={styles["project-title"]}>
-                        {project.title}
-                      </div>
-                    </div>
-                    <div className={styles["project-inner"]}>
-                      <div className={styles["profile"]}>
-                        <CircularImage />
-                      </div>
-                    </div>
-                  </li>
-                ))
-              ) : (
-                <div key={null} className={styles["empty"]}>
-                  هنوز پروژه‌ای درست نشده است!
-                </div>
-              )}
-            </ul>
+            <Projects boardId={board.id - 1} />
           </section>
         ))}
       <button

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Modal from "../customComponent/Modal";
 import styles from "./BoardModal.module.css";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BoardContext } from "@/store/board-context";
 import { api } from "@/components/api/api";
@@ -33,6 +33,8 @@ export default function BoardModal({ open, onClose }: Props) {
         console.error(error);
         toast.error("خطا در ساخت سازمان");
       }
+    } else {
+      toast.error("عنوان سازمان نمی‌تواند خالی باشد");
     }
   };
 
@@ -75,6 +77,7 @@ export default function BoardModal({ open, onClose }: Props) {
           </button>
         </div>
       </div>
+      <ToastContainer rtl position="bottom-left" pauseOnFocusLoss={false} />
     </Modal>
   );
 }

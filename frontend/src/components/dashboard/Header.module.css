@@ -17,6 +17,7 @@
   flex-direction: row;
   align-items: center;
   width: calc(100% - 410px);
+  min-width: max-content;
 }
 
 .home-icon::before {
