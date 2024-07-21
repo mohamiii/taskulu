@@ -1,7 +1,8 @@
 import Profile from "./Profile";
 import styles from "./Header.module.css";
 import { useState } from "react";
-import ProjectModal from "./ProjectModal";
+import ProjectModal from "./modals/ProjectModal";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -21,7 +22,12 @@ export default function Header() {
           ></i>
         </div>
         <div className={styles["project-manager"]}>
-          <div className={styles["project-switch"]}>
+          <div
+            className={styles["project-switch"]}
+            onClick={() => {
+              toast.error("کار نمی‌کنه!");
+            }}
+          >
             <div
               className={styles["switch-on"]}
               title="در حال نمایش پروژه های فعال"

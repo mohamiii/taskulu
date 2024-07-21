@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-export function useInput(defaultValue: any, validationFunction: any) {
+export function useInput(
+  defaultValue: string,
+  validationFunction: (value: string) => void
+) {
   const [enteredValue, setEnteredValue] = useState(defaultValue);
 
   const [firstTry, setFirstTry] = useState(true);

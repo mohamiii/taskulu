@@ -6,55 +6,51 @@
   align-items: center;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   color: #212121;
-  padding: 10px 8px;
-  position: fixed;
+  padding: 0px 8px;
+  position: relative;
   user-select: none;
-  background-color: rgba(245, 245, 245, 0.7);
-  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgb(245, 245, 245);
+  z-index: 1;
 }
 
 .header-title {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: calc(100% - 410px);
+  width: calc(100% - 340px);
   min-width: max-content;
-}
-
-.home-icon::before {
-  font-family: taskulu !important;
-  font-size: 16px;
-  content: "\E05D";
-  font-style: normal;
-  padding-left: 10px;
-  margin-right: 16px;
+  height: 100%;
 }
 
 .header-title span {
-  font-size: 16px;
-  font-weight: 700;
-  color: rgb(33, 33, 33);
+  font-size: 13px;
+  color: rgb(0, 0, 0);
+  padding: 0 8px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .plus-icon {
-  font-family: taskulu !important;
-  font-size: 13px;
-  font-style: normal;
-  padding: 0 10px;
+  padding: 0 4px;
   color: #757575;
-}
-
-.plus-icon::before {
-  content: "\E073";
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 .plus-icon:hover {
-  cursor: pointer;
+  color: #212121;
+}
+
+.add-list span:hover {
   color: #212121;
 }
 
 .project-manager {
-  width: 410px;
+  width: 340px;
   display: flex;
   align-items: center;
 }
@@ -129,7 +125,7 @@
   border-radius: 2px;
   border: 1px solid #dfdfdf;
   box-shadow: none;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(255, 255, 255);
 }
 
 .project-search-input::placeholder {

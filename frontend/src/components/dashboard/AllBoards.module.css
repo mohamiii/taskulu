@@ -1,0 +1,28 @@
+.boards {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  padding-top: 48px;
+  user-select: none;
+}
+
+.add-board {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  color: #515151;
+  padding: 14px;
+  font-size: 14px;
+  background-color: transparent;
+  border-style: unset;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 16px;
+  height: 36px;
+  max-width: max-content;
+}
+
+.add-board:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}

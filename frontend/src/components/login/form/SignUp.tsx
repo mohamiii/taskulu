@@ -7,6 +7,8 @@ import {
   confirmPasswordError,
 } from "../../../utils/validation";
 import styles from "./form.module.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp({ onToggle }: { onToggle: () => void }) {
   const {
@@ -14,30 +16,35 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
     handleInputChange: handleUsernameChange,
     handleInputBlur: handleUsernameBlur,
     Error: usernameErrorValue,
-  } = useInput("", (value: any) => usernameError(value));
+  } = useInput("", (value: string) => usernameError(value));
 
   const {
     value: emailValue,
     handleInputChange: handleEmailChange,
     handleInputBlur: handleEmailBlur,
     Error: emailErrorValue,
-  } = useInput("", (value: any) => emailError(value));
+  } = useInput("", (value: string) => emailError(value));
 
   const {
     value: passwordValue,
     handleInputChange: handlePasswordChange,
     handleInputBlur: handlePasswordBlur,
     Error: passwordErrorValue,
-  } = useInput("", (value: any) => passwordError(value));
+  } = useInput("", (value: string) => passwordError(value));
 
   const {
     value: confirmPasswordValue,
     handleInputChange: handleConfirmPasswordChange,
     handleInputBlur: handleConfirmPasswordBlur,
     Error: confirmPasswordErrorValue,
-  } = useInput("", (value: any) => confirmPasswordError(passwordValue, value));
+  } = useInput("", (value: string) =>
+    confirmPasswordError(passwordValue, value)
+  );
 
   let dataIsInvalid =
+    !usernameValue || !emailValue || !passwordValue || !confirmPasswordValue;
+
+  let dataHasError =
     usernameErrorValue ||
     emailErrorValue ||
     passwordErrorValue ||
@@ -46,7 +53,10 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
   function handleSubmit(event: any) {
     event.preventDefault();
 
-    if (dataIsInvalid) {
+    if (dataIsInvalid || dataHasError) {
+      dataHasError
+        ? toast.error(dataHasError)
+        : toast.error("لطفاً اطلاعات مورد نیاز را تکمیل کنید");
       return;
     }
 
@@ -71,48 +81,38 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
         <div className={styles["form-group"]}>
           <Input
             type="text"
-            name="username"
+            placeholder="نام کاربری، مانند bilbo"
             onBlur={handleUsernameBlur}
             onChange={handleUsernameChange}
             value={usernameValue}
             error={usernameErrorValue}
-            placeholder="نام کاربری، مانند bilbo"
-            data-name="نام کاربری"
           />
 
           <Input
             type="email"
-            name="email"
+            placeholder="ایمیل، مانند username@example.com"
             onBlur={handleEmailBlur}
             onChange={handleEmailChange}
             value={emailValue}
             error={emailErrorValue}
-            placeholder="ایمیل، مانند username@example.com"
-            data-name="ایمیل"
           />
 
           <Input
-            id="password"
             type="password"
-            name="password"
+            placeholder="گذرواژه، مانند •••••••••••••••••"
             onBlur={handlePasswordBlur}
             onChange={handlePasswordChange}
             value={passwordValue}
             error={passwordErrorValue}
-            placeholder="گذرواژه، مانند •••••••••••••••••"
-            data-name="گذرواژه"
           />
 
           <Input
-            id="reg-pass-ver"
             type="password"
-            name="password_confirmation"
+            placeholder="تکرار گذرواژه"
             onBlur={handleConfirmPasswordBlur}
             onChange={handleConfirmPasswordChange}
             value={confirmPasswordValue}
             error={confirmPasswordErrorValue}
-            placeholder="تکرار گذرواژه"
-            data-name="تکرار گذرواژه"
           />
         </div>
 
@@ -122,6 +122,12 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
             ورود
           </button>
         </p>
+        <ToastContainer
+          rtl
+          draggable
+          position="top-center"
+          pauseOnFocusLoss={false}
+        />
       </form>
     </>
   );

@@ -1,0 +1,149 @@
+.modal-container {
+  padding: 16px;
+  user-select: none;
+}
+
+.header {
+  position: relative;
+  padding: 0px 4px 15px;
+  color: #212121;
+  width: 360px;
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.header h3 {
+  margin-bottom: 5px;
+  font-size: 24px;
+  color: #212121;
+  font-weight: 400;
+  margin-top: 8px;
+}
+
+.cross-icon {
+  font-size: 1.2rem;
+  display: flex;
+  color: #515151;
+  opacity: 0.4;
+  cursor: pointer;
+  justify-content: center;
+  height: fit-content;
+  justify-self: flex-end;
+  align-self: center;
+}
+
+.cross-icon:hover {
+  color: black;
+  opacity: 1;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 16px;
+}
+
+.page {
+  display: flex;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.page-title {
+  display: flex;
+  padding-right: 8px;
+}
+
+.input-box {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.input {
+  box-shadow: none;
+  border: none;
+  border-bottom: 2px solid #dfdfdf;
+  padding-left: 30px;
+  padding-right: 5px;
+  font-size: 1rem;
+  color: #4e4e4e;
+  align-items: flex-start;
+  display: flex;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: #aaa;
+  font-size: 16;
+  font-style: italic;
+}
+
+.input:focus {
+  border-color: #66afe9;
+  outline: 0;
+}
+
+.plus-icon {
+  padding: 0 4px;
+  color: #757575;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.7;
+  position: absolute;
+  justify-self: end;
+  align-self: center;
+  padding-left: 8px;
+}
+
+.plus-icon:hover {
+  color: #212121;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin-top: 20px;
+  gap: 8px;
+}
+
+.btn {
+  display: flex;
+  background-color: #03a9f4;
+  color: white;
+  padding: 16px;
+  border-style: none;
+  border-radius: 2px;
+  margin-right: 0px;
+  height: 36px;
+  line-height: 3.6rem;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.btn:hover {
+  background-color: #2bb3f1;
+}
+
+.cancel {
+  display: flex;
+  background-color: unset;
+  color: #212121;
+  padding: 16px;
+  border-style: none;
+  border-radius: 2px;
+  margin-right: 0px;
+  height: 36px;
+  line-height: 3.6rem;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.cancel:hover {
+  background-color: #e0e0e0;
+}

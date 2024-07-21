@@ -1,0 +1,12 @@
+.project {
+  display: flex;
+  flex-direction: row;
+  user-select: none;
+  height: 100vh;
+}
+
+.project-inner {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 220px);
+}

@@ -3,17 +3,17 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import CircularImage from "./CircularImage";
 
-export default function ProfileImage() {
+export default function Profile() {
   const [menuDisplay, setMenuDisplay] = useState(false);
 
-  const menuRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let handler = (e: MouseEvent) => {
       if (
-        menuRef.current &&
+        dropdownRef.current &&
         e.target instanceof Node &&
-        !menuRef.current.contains(e.target)
+        !dropdownRef.current.contains(e.target)
       ) {
         setMenuDisplay(false);
       }
@@ -29,7 +29,7 @@ export default function ProfileImage() {
   return (
     <>
       <div className={styles["header-profile"]}>
-        <div className={styles["dropdown"]}>
+        <div className={styles["dropdown"]} ref={dropdownRef}>
           <div
             className={styles["user-avatar"]}
             onClick={() => {
@@ -40,7 +40,6 @@ export default function ProfileImage() {
             <span className={styles["user-status-online"]}></span>
           </div>
           <div
-            ref={menuRef}
             className={styles["menu"]}
             style={menuDisplay ? { display: "flex" } : { display: "none" }}
             tabIndex={0}

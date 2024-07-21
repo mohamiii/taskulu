@@ -1,15 +1,11 @@
 import styles from "./Input.module.css";
 
-export default function Input({
-  label,
-  id,
-  error,
-  ...props
-}: {
+type Props = {
   id?: string;
   error?: any;
   [key: string]: any;
-}) {
+};
+export default function Input({ id, error, ...props }: Props) {
   return (
     <div className={styles["form-content"]}>
       <input

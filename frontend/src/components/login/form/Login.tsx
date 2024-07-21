@@ -3,7 +3,7 @@ import { useInput } from "../../../hooks/useInput";
 import { emailError, passwordError } from "../../../utils/validation";
 import styles from "./form.module.css";
 
-export default function Login({ onToggle }: { onToggle: any }) {
+export default function Login({ onToggle }: { onToggle: () => void }) {
   const {
     value: emailValue,
     handleInputChange: handleEmailChange,

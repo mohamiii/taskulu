@@ -44,7 +44,7 @@ export function confirmPasswordError(
   confirmPasswordValue: string
 ) {
   if (passwordValue !== confirmPasswordValue) {
-    return "گذرواژه ها باید یکسان باشند";
+    return "گذرواژه ها یکسان نیستند";
   } else {
     return "";
   }

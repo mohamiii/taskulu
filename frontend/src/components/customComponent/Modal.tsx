@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styles from "./Modal.module.css";
+import { ToastContainer } from "react-toastify";
 
 type Props = {
   open: boolean;
@@ -14,8 +15,10 @@ function Modal({ open, onClose, children }: Props) {
   useEffect(() => {
     if (open) {
       dialogRef.current?.showModal();
+      document.body.style.overflow = "hidden";
     } else {
       dialogRef.current?.close();
+      document.body.style.overflow = "";
     }
   }, [open]);
 
@@ -53,6 +56,13 @@ function Modal({ open, onClose, children }: Props) {
   const dialog: JSX.Element | null = open ? (
     <dialog ref={dialogRef} onKeyDown={handleKeyDown} className={styles.modal}>
       <div ref={modalRef}>{children}</div>
+
+      <ToastContainer
+        rtl
+        draggable
+        position="bottom-left"
+        pauseOnFocusLoss={false}
+      />
     </dialog>
   ) : null;
   return dialog;
