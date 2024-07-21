@@ -47,7 +47,7 @@ class BoardDeleteView(APIView):
     def delete(self, request, pk):
         board = Board.objects.get(pk=pk)
         self.check_object_permissions(request, board)
-        srz_data = BoardSerializer(instance=board, data=request.data)
+        srz_data = BoardSerializer(instance=board, data=request.data, partial=True)
         if srz_data.is_valid():
             board.delete()
             return Response({'message': 'Board deleted'}, status=status.HTTP_200_OK)
@@ -57,10 +57,12 @@ class ProjectListView(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request, pk):
-        project = Project.objects.get(pk=pk, user=request.user)
-        srz_data = ProjectSerializer(instance=project).data
-        return Response(srz_data, status=status.HTTP_200_OK)
-
+        try:
+            project = Project.objects.get(pk=pk, user=request.user)
+            srz_data = ProjectSerializer(instance=project).data
+            return Response(srz_data, status=status.HTTP_200_OK)
+        except Project.DoesNotExist:
+            return Response({'error': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class ProjectCreateView(APIView):
     permission_classes = [IsAuthenticated, ]
