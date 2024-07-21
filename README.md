@@ -1,5 +1,5 @@
-Task management website test project.
+Task management website like taskulu.com
 
-Technologies:
-REACT: Front-end for homepage, login, and work manager.
-Django: Back-end for creating tasks.
+Technologies: ReactJS: Front-end
+Django: Back-end
+
