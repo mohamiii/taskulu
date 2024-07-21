@@ -5,12 +5,10 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     @staticmethod
     def validate_email(value):
-        """validates emails: emails have to be from gmail, emails will be lower-cased"""
+        """validates emails, emails will be lower-cased"""
         lower_email = value.lower()
         if User.objects.filter(email__iexact=lower_email).exists():
             raise serializers.ValidationError("Email exists!")
-        if "@gmail" not in value:
-            raise serializers.ValidationError("Only Gmail is allowed.")
         return lower_email
 
     @staticmethod
