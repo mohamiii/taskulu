@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 class UserRegister(APIView):
     @staticmethod
     def post(request):
-        validated_data = UserRegisterSerializer(data=request.POST)
+        validated_data = UserRegisterSerializer(data=request.data)
         if validated_data.is_valid():
             validated_data.create(validated_data.validated_data)
             return Response(validated_data.data, status=status.HTTP_201_CREATED)
