@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useContext, useEffect, useRef, useState } from "react";
 import CircularImage from "./CircularImage";
 import styles from "./Profile.module.css";
+import router from "next/router";
 
 export default function Profile() {
   const [menuDisplay, setMenuDisplay] = useState(false);
@@ -28,6 +29,11 @@ export default function Profile() {
       document.removeEventListener("mousedown", handler);
     };
   });
+
+  function handleLogOut() {
+    localStorage.removeItem("accessToken");
+    router.push("/account/login/");
+  }
 
   return (
     <>
@@ -61,7 +67,7 @@ export default function Profile() {
               راهنما
             </a>
             <hr className={styles["dropdown-divider"]} />
-            <button className={styles["logout-btn"]}>
+            <button onClick={handleLogOut} className={styles["logout-btn"]}>
               <i className={styles["logout-icon"]}></i>
               خروج
             </button>
