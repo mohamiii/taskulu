@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Task.module.css";
 import TaskModal from "./modals/TaskModal";
+import UserContextProvider from "@/store/user-context";
 
 type Props = {
   task: Tasks;
@@ -21,15 +22,17 @@ export default function Task({ task, tasks, setTasks }: Props) {
       >
         {task.title}
       </div>
-      <TaskModal
-        open={taskModalIsOpen}
-        onClose={() => {
-          setTaskModalIsOpen(false);
-        }}
-        tasks={tasks}
-        setTasks={setTasks}
-        task={task}
-      />
+      <UserContextProvider>
+        <TaskModal
+          open={taskModalIsOpen}
+          onClose={() => {
+            setTaskModalIsOpen(false);
+          }}
+          tasks={tasks}
+          setTasks={setTasks}
+          task={task}
+        />
+      </UserContextProvider>
     </>
   );
 }

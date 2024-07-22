@@ -1,10 +1,13 @@
-import styles from "./Profile.module.css";
-import { useEffect, useRef, useState } from "react";
+import { UserContext } from "@/store/user-context";
 import Link from "next/link";
+import { useContext, useEffect, useRef, useState } from "react";
 import CircularImage from "./CircularImage";
+import styles from "./Profile.module.css";
 
 export default function Profile() {
   const [menuDisplay, setMenuDisplay] = useState(false);
+
+  const { user } = useContext(UserContext);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -45,8 +48,8 @@ export default function Profile() {
             tabIndex={0}
           >
             <div className={styles["dropdown-header"]}>
-              <span className={styles["header-text"]} title="azemco">
-                azemco
+              <span className={styles["header-text"]} title={user?.username}>
+                {user?.username}
               </span>
             </div>
             <Link className={styles["item"]} href="/account">

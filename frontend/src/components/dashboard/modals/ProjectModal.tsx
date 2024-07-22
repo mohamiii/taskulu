@@ -1,11 +1,11 @@
+import { BoardContext } from "@/store/board-context";
 import { useContext, useEffect, useRef, useState } from "react";
-import Modal from "../../customComponent/Modal";
-import styles from "./ProjectModal.module.css";
 import { IoClose } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { BoardContext } from "@/store/board-context";
+import { toast } from "react-toastify";
 import { api } from "../../api/api";
-import { toast, ToastContainer } from "react-toastify";
+import Modal from "../../customComponent/Modal";
+import styles from "./ProjectModal.module.css";
 
 type Props = {
   open: boolean;

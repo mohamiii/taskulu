@@ -1,14 +1,15 @@
-import Input from "../../customComponent/Input";
+import { api } from "@/components/api/api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useInput } from "../../../hooks/useInput";
 import {
-  usernameError,
+  confirmPasswordError,
   emailError,
   passwordError,
-  confirmPasswordError,
+  usernameError,
 } from "../../../utils/validation";
+import Input from "../../customComponent/Input";
 import styles from "./form.module.css";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp({ onToggle }: { onToggle: () => void }) {
   const {
@@ -50,7 +51,7 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
     passwordErrorValue ||
     confirmPasswordErrorValue;
 
-  function handleSubmit(event: any) {
+  function handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
 
     if (dataIsInvalid || dataHasError) {
@@ -60,17 +61,26 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
       return;
     }
 
-    //console log for valid inputs
-    console.log(
-      "%c" +
-        "Username: " +
-        usernameValue +
-        "\nEmail: " +
-        emailValue +
-        "\nPassword: " +
-        passwordValue,
-      "padding: 0.15rem; background: #04406b; color: #fcfabd"
-    );
+    const handleSignup = async () => {
+      try {
+        const body = {
+          username: usernameValue,
+          email: emailValue,
+          password: passwordValue,
+          passwordConfirm: confirmPasswordValue,
+        };
+        const response = await api.post("user/signup/", body);
+        if (response.status === 201) {
+          toast.success("حساب کاربری با موفقیت ساخته شد");
+        } else {
+          toast.error("خطا در ساخت حساب کاربری");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("خطا در ساخت حساب کاربری");
+      }
+    };
+    handleSignup();
   }
 
   return (
@@ -122,12 +132,6 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
             ورود
           </button>
         </p>
-        <ToastContainer
-          rtl
-          draggable
-          position="top-center"
-          pauseOnFocusLoss={false}
-        />
       </form>
     </>
   );

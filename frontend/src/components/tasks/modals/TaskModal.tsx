@@ -3,7 +3,8 @@ import Modal from "@/components/customComponent/Modal";
 import CircularImage from "@/components/dashboard/CircularImage";
 import { IoClose } from "react-icons/io5";
 import { IoIosCall } from "react-icons/io";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "@/store/user-context";
 
 type Props = {
   open: boolean;
@@ -20,6 +21,8 @@ export default function TaskModal({
   setTasks,
   task,
 }: Props) {
+  const { user } = useContext(UserContext);
+
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -27,7 +30,9 @@ export default function TaskModal({
   };
 
   let createdDate: Date | null = task?.created ? new Date(task.created) : null;
-  let formattedCreatedDate = `توسط: azemco, در ${createdDate?.toLocaleString()}`;
+  let formattedCreatedDate = `توسط: ${
+    user?.username
+  }, در ${createdDate?.toLocaleString()}`;
 
   return (
     <Modal open={open} onClose={onClose}>

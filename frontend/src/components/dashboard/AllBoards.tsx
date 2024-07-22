@@ -12,7 +12,11 @@ export default function AllBoards() {
 
   return (
     <div className={styles["boards"]}>
-      {boards && boards.map((board) => <Board key={board.id} board={board} />)}
+      {boards && boards.length > 0 ? (
+        boards.map((board) => <Board key={board.id} board={board} />)
+      ) : (
+        <div> هنوز سازمانی درست نشده است!</div>
+      )}
       <button
         className={styles["add-board"]}
         onClick={() => {

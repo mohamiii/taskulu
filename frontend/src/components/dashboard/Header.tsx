@@ -3,6 +3,7 @@ import styles from "./Header.module.css";
 import { useState } from "react";
 import ProjectModal from "./modals/ProjectModal";
 import { toast } from "react-toastify";
+import UserContextProvider from "@/store/user-context";
 
 export default function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -46,7 +47,9 @@ export default function Header() {
             />
             <i className={styles["project-search-icon"]}></i>
           </form>
-          <Profile />
+          <UserContextProvider>
+            <Profile />
+          </UserContextProvider>
         </div>
       </div>
       <ProjectModal

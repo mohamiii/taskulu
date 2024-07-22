@@ -22,9 +22,10 @@ class UserViewSet(viewsets.ViewSet):
     queryset = User.objects.all()
 
     def list(self, request):
-        if request.user.is_staff is not True:
-            return Response({'Access denied': 'You are not the owner'}, status=status.HTTP_403_FORBIDDEN)
-        serializer = UserSerializer(instance=self.queryset, many=True)
+        if not request.user.is_authenticated:
+            return Response({'message': 'You are not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+        user = request.user
+        serializer = UserSerializer(instance=user)
         return Response(data=serializer.data)
 
     def retrieve(self, request, pk=None):

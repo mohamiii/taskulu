@@ -6,6 +6,7 @@ import Header from "@/components/tasks/Header";
 import Sidebar from "@/components/tasks/Sidebar";
 import Pages from "@/components/tasks/Pages";
 import styles from "./tasks.module.css";
+import UserContextProvider from "@/store/user-context";
 
 export default function Tasks() {
   const [project, setProject] = useState<Project | undefined>(undefined);
@@ -46,26 +47,21 @@ export default function Tasks() {
     <div className={styles["project"]}>
       <Sidebar projectTitle={project?.title} />
       <div className={styles["project-inner"]}>
-        <Header
-          pages={pages}
-          setPages={setPages}
-          page={page}
-          setPage={setPage}
-          project={project}
-        />
+        <UserContextProvider>
+          <Header
+            pages={pages}
+            setPages={setPages}
+            page={page}
+            setPage={setPage}
+            project={project}
+          />
+        </UserContextProvider>
         {pages && pages.length > 0 ? (
           <Pages page={page} setPage={setPage} />
         ) : (
           <p>ابتدا یک صفحه بسازید</p>
         )}
       </div>
-
-      <ToastContainer
-        rtl
-        draggable
-        position="top-center"
-        pauseOnFocusLoss={false}
-      />
     </div>
   );
 }

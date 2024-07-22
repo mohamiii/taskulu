@@ -1,7 +1,7 @@
-import { createContext, useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { api } from "@/components/api/api";
+import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const BoardContext = createContext({
   boards: [] as Board[],
@@ -36,12 +36,6 @@ export default function BoardContextProvider({
   return (
     <BoardContext.Provider value={contextValue}>
       {children}
-      <ToastContainer
-        rtl
-        draggable
-        position="top-center"
-        pauseOnFocusLoss={false}
-      />
     </BoardContext.Provider>
   );
 }

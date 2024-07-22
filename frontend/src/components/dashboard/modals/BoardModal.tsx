@@ -1,7 +1,7 @@
 import { api } from "@/components/api/api";
 import { BoardContext } from "@/store/board-context";
 import { useContext, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "../../customComponent/Modal";
 import styles from "./BoardModal.module.css";

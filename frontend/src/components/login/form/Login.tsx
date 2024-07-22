@@ -1,15 +1,18 @@
 import Input from "../../customComponent/Input";
 import { useInput } from "../../../hooks/useInput";
-import { emailError, passwordError } from "../../../utils/validation";
+import { usernameError, passwordError } from "../../../utils/validation";
 import styles from "./form.module.css";
+import { api } from "@/components/api/api";
+import { toast } from "react-toastify";
+import router from "next/router";
 
 export default function Login({ onToggle }: { onToggle: () => void }) {
   const {
-    value: emailValue,
-    handleInputChange: handleEmailChange,
-    handleInputBlur: handleEmailBlur,
-    Error: emailErrorValue,
-  } = useInput("", (value: any) => emailError(value));
+    value: usernameValue,
+    handleInputChange: handleUsernameChange,
+    handleInputBlur: handleUsernameBlur,
+    Error: usernameErrorValue,
+  } = useInput("", (value: string) => usernameError(value));
 
   const {
     value: passwordValue,
@@ -20,9 +23,29 @@ export default function Login({ onToggle }: { onToggle: () => void }) {
   function handleSubmit(event: any) {
     event.preventDefault();
 
-    if (emailErrorValue) {
+    if (usernameErrorValue) {
       return;
     }
+
+    const handleSignIn = async () => {
+      try {
+        const body = {
+          username: usernameValue,
+          password: passwordValue,
+        };
+        const response = await api.post("user/login/", body);
+        if (response.status === 200) {
+          localStorage.setItem("accessToken", response.data.access);
+          router.push("/dashboard");
+        } else {
+          toast.error("خطا در ورود");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("خطا در ورود");
+      }
+    };
+    handleSignIn();
   }
 
   return (
@@ -32,15 +55,12 @@ export default function Login({ onToggle }: { onToggle: () => void }) {
 
         <div className={styles["form-group"]}>
           <Input
-            id="email"
-            type="email"
-            name="email"
-            onBlur={handleEmailBlur}
-            onChange={handleEmailChange}
-            value={emailValue}
-            error={emailErrorValue}
-            placeholder="ایمیل، مانند username@example.com"
-            data-name="ایمیل"
+            type="text"
+            placeholder="نام کاربری، مانند bilbo"
+            onBlur={handleUsernameBlur}
+            onChange={handleUsernameChange}
+            value={usernameValue}
+            error={usernameErrorValue}
           />
 
           <Input
@@ -70,7 +90,9 @@ export default function Login({ onToggle }: { onToggle: () => void }) {
         </div>
 
         <p className={styles["form-actions"]}>
-          <button className={styles["btn"]}>ورود</button>
+          <button onClick={handleSubmit} className={styles["btn"]}>
+            ورود
+          </button>
           <button className={styles["flat"]} onClick={onToggle}>
             عضویت
           </button>
