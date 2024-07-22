@@ -19,7 +19,7 @@ export default function UserContextProvider({
       setUser(response.data);
     } catch (error) {
       console.error(error);
-      toast.error("خطا در دریافت اطلاعات کاربری");
+      // toast.error("خطا در دریافت اطلاعات کاربری");
     }
   };
 

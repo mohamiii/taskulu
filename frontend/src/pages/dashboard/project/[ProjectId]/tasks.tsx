@@ -7,6 +7,7 @@ import Sidebar from "@/components/tasks/Sidebar";
 import Pages from "@/components/tasks/Pages";
 import styles from "./tasks.module.css";
 import UserContextProvider from "@/store/user-context";
+import router from "next/router";
 
 export default function Tasks() {
   const [project, setProject] = useState<Project | undefined>(undefined);
@@ -28,6 +29,10 @@ export default function Tasks() {
   };
 
   useEffect(() => {
+    const testAccessToken = localStorage.getItem("accessToken");
+    if (!testAccessToken) {
+      router.push("/account/login");
+    }
     if (projectId) {
       fetchProject();
     }
