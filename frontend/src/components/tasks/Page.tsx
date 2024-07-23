@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import styles from "./Pages.module.css";
 import List from "@/components/tasks/List";
+import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { api } from "../api/api";
 import { toast } from "react-toastify";
+import { api } from "../api/api";
+import styles from "./Page.module.css";
 
 type Props = {
   page?: Pages;
   setPage: (page: Pages) => void;
 };
-export default function Pages({ page, setPage }: Props) {
+export default function Page({ page, setPage }: Props) {
   const [lists, setLists] = useState<Lists[]>([]);
   const [listTitle, setListTitle] = useState("");
 
@@ -40,6 +40,13 @@ export default function Pages({ page, setPage }: Props) {
     }
   };
 
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleAddList();
+    }
+  };
+
   return (
     <div className={styles["body"]}>
       {lists && lists.length > 0 ? (
@@ -53,9 +60,10 @@ export default function Pages({ page, setPage }: Props) {
             </div>
             <div className={styles["input-wrapper"]}>
               <input
-                onChange={(e) => setListTitle(e.target.value)}
-                className={styles["create-list-input"]}
                 placeholder="عنوان لیست"
+                className={styles["create-list-input"]}
+                onChange={(e) => setListTitle(e.target.value)}
+                onKeyDown={handleKeyDown}
               ></input>
               <button
                 onClick={handleAddList}
@@ -71,9 +79,11 @@ export default function Pages({ page, setPage }: Props) {
       {lists && lists.length > 0 && (
         <div className={styles["add-list"]}>
           <input
-            onChange={(e) => setListTitle(e.target.value)}
             placeholder="ایجاد لیست جدید"
             className={styles["input"]}
+            value={listTitle}
+            onChange={(e) => setListTitle(e.target.value)}
+            onKeyDown={handleKeyDown}
           ></input>
           <span onClick={handleAddList}>
             <FaPlus />

@@ -33,7 +33,8 @@ export default function SignIn() {
   );
 
   return !displayLogin ? (
-    <div></div>
+    // returns empty page when displayLogin is false then redirect to /dashboard... Sounds ridiculous?!
+    <div />
   ) : (
     <>
       <div className={styles["authorize"]}>

@@ -4,7 +4,7 @@ import { api } from "@/components/api/api";
 import { toast, ToastContainer } from "react-toastify";
 import Header from "@/components/tasks/Header";
 import Sidebar from "@/components/tasks/Sidebar";
-import Pages from "@/components/tasks/Pages";
+import Page from "@/components/tasks/Page";
 import styles from "./tasks.module.css";
 import UserContextProvider from "@/store/user-context";
 import router from "next/router";
@@ -62,7 +62,7 @@ export default function Tasks() {
           />
         </UserContextProvider>
         {pages && pages.length > 0 ? (
-          <Pages page={page} setPage={setPage} />
+          <Page page={page} setPage={setPage} />
         ) : (
           <p>ابتدا یک صفحه بسازید</p>
         )}

@@ -10,7 +10,7 @@ type Props = {
   open: boolean;
   onClose: () => void;
   pages: Pages[];
-  setPages?: (pages: Pages[]) => void;
+  setPages: (pages: Pages[]) => void;
   setPage: (page: Pages) => void;
   project: Projects;
 };
@@ -39,9 +39,7 @@ export default function PageModal({
         const response = await api.post("page/create/", body);
         if (response.status === 201) {
           const allPages = [...pages, response.data];
-          if (setPages) {
-            setPages(allPages);
-          }
+          setPages(allPages);
           setPage(response.data);
           setPageTitle("");
         } else {
@@ -91,6 +89,7 @@ export default function PageModal({
               onChange={(event) => {
                 setPageTitle(event.target.value);
               }}
+              value={pageTitle}
             ></input>
             <span className={styles["plus-icon"]} onClick={handleCreatePage}>
               <FaPlus />
