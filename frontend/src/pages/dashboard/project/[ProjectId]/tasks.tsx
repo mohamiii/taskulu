@@ -31,7 +31,7 @@ export default function Tasks() {
   useEffect(() => {
     const testAccessToken = localStorage.getItem("accessToken");
     if (!testAccessToken) {
-      router.push("/account/login");
+      router.replace("/account/login");
     }
     if (projectId) {
       fetchProject();

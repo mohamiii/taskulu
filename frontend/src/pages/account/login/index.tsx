@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "/public/assets/images/taskulu-fa-blue.svg";
@@ -7,9 +7,20 @@ import SignUp from "@/components/login/form/SignUp";
 import OtherOptions from "@/components/login/OtherOptions";
 import Footer from "@/components/login/Footer";
 import styles from "./index.module.css";
+import router from "next/router";
 
 export default function SignIn() {
   const [signUp, setSignUp] = useState(false);
+  const [displayLogin, setDisplayLogin] = useState(false);
+
+  useEffect(() => {
+    const testAccessToken = localStorage.getItem("accessToken");
+    if (testAccessToken) {
+      router.replace("/dashboard");
+    } else {
+      setDisplayLogin(true);
+    }
+  }, []);
 
   function handleSignUpToggle() {
     setSignUp(!signUp);
@@ -21,7 +32,9 @@ export default function SignIn() {
     <Login onToggle={() => handleSignUpToggle()} />
   );
 
-  return (
+  return !displayLogin ? (
+    <div></div>
+  ) : (
     <>
       <div className={styles["authorize"]}>
         <div className={styles["authorize-inner"]}>

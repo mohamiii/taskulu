@@ -8,9 +8,10 @@ export default function Dashboard() {
   useEffect(() => {
     const testAccessToken = localStorage.getItem("accessToken");
     if (!testAccessToken) {
-      router.push("/account/login");
+      router.replace("/account/login");
     }
   }, []);
+
   return (
     <BoardContextProvider>
       <Header />

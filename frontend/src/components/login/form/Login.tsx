@@ -23,7 +23,10 @@ export default function Login({ onToggle }: { onToggle: () => void }) {
   function handleSubmit(event: any) {
     event.preventDefault();
 
-    if (usernameErrorValue) {
+    let dataIsInvalid = !usernameValue || !passwordValue;
+
+    if (dataIsInvalid) {
+      toast.error("لطفاً اطلاعات مورد نیاز را تکمیل کنید");
       return;
     }
 
@@ -36,13 +39,19 @@ export default function Login({ onToggle }: { onToggle: () => void }) {
         const response = await api.post("user/login/", body);
         if (response.status === 200) {
           localStorage.setItem("accessToken", response.data.access);
-          router.push("/dashboard");
+          router.replace("/dashboard");
+          location.reload();
         } else {
-          toast.error("خطا در ورود");
+          toast.error(response.data.detail || "خطا در ورود");
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
-        toast.error("خطا در ورود");
+        const errorMessage = error.response.data.detail.includes(
+          "No active account found"
+        )
+          ? "نام کاربری یا گذرواژه اشتباه است"
+          : "خطا در ورود";
+        toast.error(errorMessage);
       }
     };
     handleSignIn();

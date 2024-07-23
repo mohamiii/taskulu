@@ -73,11 +73,16 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
         if (response.status === 201) {
           toast.success("حساب کاربری با موفقیت ساخته شد");
         } else {
-          toast.error("خطا در ساخت حساب کاربری");
+          toast.error(response.data.detail || "خطا در ساخت حساب کاربری");
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
-        toast.error("خطا در ساخت حساب کاربری");
+        const errorMessage = error.response.data.username[0].includes(
+          "username already exists"
+        )
+          ? "یک کاربر با این نام کاربری وجود دارد، نام دیگری استفاده کنید"
+          : "خطا در ورود";
+        toast.error(errorMessage);
       }
     };
     handleSignup();
