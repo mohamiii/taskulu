@@ -40,7 +40,6 @@ export default function Login({ onToggle }: { onToggle: () => void }) {
         if (response.status === 200) {
           localStorage.setItem("accessToken", response.data.access);
           router.replace("/dashboard");
-          location.reload();
         } else {
           toast.error(response.data.detail || "خطا در ورود");
         }
