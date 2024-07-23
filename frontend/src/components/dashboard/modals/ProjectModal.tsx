@@ -32,6 +32,24 @@ export default function ProjectModal({
     !board && setProjectBoard(boards[0]);
   }, [board, boards]);
 
+  useEffect(() => {
+    let handler = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        e.target instanceof Node &&
+        !dropdownRef.current.contains(e.target)
+      ) {
+        setDropdownIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+
   const handleCreateProject = async () => {
     if (boards && boards.length > 0) {
       if (projectTitle.length > 0) {
