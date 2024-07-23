@@ -72,15 +72,17 @@ export default function SignUp({ onToggle }: { onToggle: () => void }) {
         const response = await api.post("user/signup/", body);
         if (response.status === 201) {
           toast.success("حساب کاربری با موفقیت ساخته شد");
+          onToggle();
         } else {
           toast.error(response.data.detail || "خطا در ساخت حساب کاربری");
         }
       } catch (error: any) {
         console.error(error);
-        const errorMessage = error.response.data.username[0].includes(
-          "username already exists"
-        )
+        const errorData = error.response.data;
+        const errorMessage = errorData.username
           ? "یک کاربر با این نام کاربری وجود دارد، نام دیگری استفاده کنید"
+          : errorData.email
+          ? "این ایمیل قبلاً ثبت شده، ایمیل دیگری انتخاب کنید"
           : "خطا در ورود";
         toast.error(errorMessage);
       }
