@@ -59,6 +59,7 @@ export default function Tasks() {
             page={page}
             setPage={setPage}
             project={project}
+            fetchProject={fetchProject}
           />
         </UserContextProvider>
         {pages && pages.length > 0 ? (

@@ -13,6 +13,7 @@ type Props = {
   setPages: (pages: Pages[]) => void;
   setPage: (page: Pages) => void;
   project: Projects;
+  fetchProject: () => void;
 };
 
 export default function PageModal({
@@ -22,6 +23,7 @@ export default function PageModal({
   setPages,
   setPage,
   project,
+  fetchProject,
 }: Props) {
   const [pageTitle, setPageTitle] = useState("");
 
@@ -42,6 +44,7 @@ export default function PageModal({
           setPages(allPages);
           setPage(response.data);
           setPageTitle("");
+          fetchProject();
         } else {
           toast.error("خطا در ساخت صفحه");
         }

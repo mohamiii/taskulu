@@ -12,6 +12,7 @@ type Props = {
   page?: Pages;
   setPage: (page: Pages) => void;
   project: Project;
+  fetchProject: () => void;
 };
 export default function Header({
   pages,
@@ -19,6 +20,7 @@ export default function Header({
   page,
   setPage,
   project,
+  fetchProject
 }: Props) {
   const [pageModalIsOpen, setPageModalIsOpen] = useState(false);
 
@@ -96,6 +98,7 @@ export default function Header({
         setPages={setPages}
         setPage={setPage}
         project={project}
+        fetchProject={fetchProject}
       />
     </>
   );
