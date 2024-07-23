@@ -7,9 +7,9 @@ import styles from "./Page.module.css";
 
 type Props = {
   page?: Pages;
-  setPage: (page: Pages) => void;
+  fetchProject: () => void;
 };
-export default function Page({ page, setPage }: Props) {
+export default function Page({ page, fetchProject }: Props) {
   const [lists, setLists] = useState<Lists[]>([]);
   const [listTitle, setListTitle] = useState("");
 
@@ -28,6 +28,7 @@ export default function Page({ page, setPage }: Props) {
           const allLists = [...lists, response.data];
           setLists(allLists);
           setListTitle("");
+          fetchProject();
         } else {
           toast.error("خطا در ساخت لیست");
         }

@@ -42,9 +42,9 @@ export default function Tasks() {
   useEffect(() => {
     if (project?.pages) {
       setPages(project.pages);
-      setPage(project.pages[0]);
+      !page && setPage(project.pages[0]);
     }
-  }, [project]);
+  }, [page, project]);
 
   return project === undefined ? (
     <div>Project not found</div>
@@ -62,7 +62,7 @@ export default function Tasks() {
           />
         </UserContextProvider>
         {pages && pages.length > 0 ? (
-          <Page page={page} setPage={setPage} />
+          <Page page={page} fetchProject={fetchProject} />
         ) : (
           <p>ابتدا یک صفحه بسازید</p>
         )}
