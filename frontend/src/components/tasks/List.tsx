@@ -6,12 +6,14 @@ import { toast } from "react-toastify";
 import { api } from "../api/api";
 
 type Props = {
-  list?: Lists;
+  list: Lists;
+  fetchProject: () => void;
 };
-export default function List({ list }: Props) {
+export default function List({ list, fetchProject }: Props) {
   const [tasks, setTasks] = useState<Tasks[]>([]);
   const [showTaskInput, setShowTaskInput] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
+  const [listHover, setListHover] = useState(false);
 
   useEffect(() => {
     if (list?.tasks) {
@@ -37,6 +39,7 @@ export default function List({ list }: Props) {
           setTasks(allTasks);
           setTaskTitle("");
           handleShowTaskInput("");
+          fetchProject();
         } else {
           toast.error("خطا در ساخت کار");
         }
@@ -51,10 +54,18 @@ export default function List({ list }: Props) {
 
   return (
     <>
-      <div className={styles["list"]}>
+      <div
+        onMouseOver={() => {
+          setListHover(true);
+        }}
+        onMouseOut={() => {
+          setListHover(false);
+        }}
+        className={styles["list"]}
+      >
         <span className={styles["list-title"]}>{list?.title}</span>
 
-        <div className={styles["task"]}>
+        <div className={`${styles["task"]} ${listHover && styles["todo"]}`}>
           <span>
             <p>Todo ({Todo.length})</p>
 
@@ -83,9 +94,10 @@ export default function List({ list }: Props) {
             style={{ display: showTaskInput === "Todo" ? "flex" : "none" }}
           >
             <input
-              className={styles["task-input"]}
-              onChange={(e) => setTaskTitle(e.target.value)}
               placeholder="عنوان کار"
+              className={styles["task-input"]}
+              value={taskTitle}
+              onChange={(e) => setTaskTitle(e.target.value)}
             />
             <div className={styles["input-box-footer"]}>
               <button
@@ -104,7 +116,7 @@ export default function List({ list }: Props) {
           </div>
         </div>
 
-        <div className={styles["task"]}>
+        <div className={`${styles["task"]} ${listHover && styles["doing"]}`}>
           <span>
             <p>Doing ({Doing.length})</p>
 
@@ -133,9 +145,10 @@ export default function List({ list }: Props) {
             style={{ display: showTaskInput === "Doing" ? "flex" : "none" }}
           >
             <input
-              className={styles["task-input"]}
-              onChange={(e) => setTaskTitle(e.target.value)}
               placeholder="عنوان کار"
+              className={styles["task-input"]}
+              value={taskTitle}
+              onChange={(e) => setTaskTitle(e.target.value)}
             />
             <div className={styles["input-box-footer"]}>
               <button
@@ -154,7 +167,7 @@ export default function List({ list }: Props) {
           </div>
         </div>
 
-        <div className={styles["task"]}>
+        <div className={`${styles["task"]} ${listHover && styles["done"]}`}>
           <span>
             <p>Done ({Done.length})</p>
             <i
@@ -182,9 +195,10 @@ export default function List({ list }: Props) {
             style={{ display: showTaskInput === "Done" ? "flex" : "none" }}
           >
             <input
-              className={styles["task-input"]}
-              onChange={(e) => setTaskTitle(e.target.value)}
               placeholder="عنوان کار"
+              className={styles["task-input"]}
+              value={taskTitle}
+              onChange={(e) => setTaskTitle(e.target.value)}
             />
             <div className={styles["input-box-footer"]}>
               <button

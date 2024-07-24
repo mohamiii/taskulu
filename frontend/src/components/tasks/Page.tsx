@@ -51,7 +51,9 @@ export default function Page({ page, fetchProject }: Props) {
   return (
     <div className={styles["body"]}>
       {lists && lists.length > 0 ? (
-        lists.map((item) => <List key={item.id} list={item} />)
+        lists.map((item) => (
+          <List key={item.id} list={item} fetchProject={fetchProject} />
+        ))
       ) : (
         <div className={styles["task-list-empty"]}>
           <div className={styles["create-list-box"]}>

@@ -15,7 +15,7 @@ export default function AllBoards() {
       {boards && boards.length > 0 ? (
         boards.map((board) => <Board key={board.id} board={board} />)
       ) : (
-        <div> هنوز سازمانی درست نشده است!</div>
+        <p> هنوز سازمانی درست نشده است!</p>
       )}
       <button
         className={styles["add-board"]}
